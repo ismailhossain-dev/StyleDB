@@ -20,9 +20,12 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      data-theme="mytheme"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="">
+        <main className="py-2 md:w-11/12 mx-auto min-h-[calc(100vh-287px)]">{children}</main>
+      </body>
     </html>
   );
 }
