@@ -1,8 +1,9 @@
 import React from "react";
 import { ShoppingCart, Star, Heart, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const CollectionCard = ({ collection }) => {
-  const { name, image, price, discount, rating } = collection;
+  const { name, image, price, discount, rating, _id } = collection;
 
   // অরিজিনাল প্রাইস ক্যালকুলেশন
   const originalPrice = discount > 0 ? (price / (1 - discount / 100)).toFixed(2) : null;
@@ -19,9 +20,12 @@ const CollectionCard = ({ collection }) => {
 
         {/* Hover Overlay with Details Button */}
         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <button className="bg-white/90 backdrop-blur-md text-black px-5 py-2 rounded-full text-sm font-bold flex items-center gap-1 shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-black hover:text-white">
+          <Link
+            href={`/collections/${_id}`}
+            className="bg-white/90 backdrop-blur-md text-black px-5 py-2 rounded-full text-sm font-bold flex items-center gap-1 shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-black hover:text-white cursor-pointer"
+          >
             Details <ArrowUpRight size={16} />
-          </button>
+          </Link>
         </div>
 
         {/* Badges */}
