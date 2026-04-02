@@ -5,9 +5,8 @@ import Image from "next/image";
 const Logo = () => {
   return (
     <div>
-      <Link href={"/"} className="flex gap-2 items-center">
-        <Image width={30} height={30} src={nextjsLogo} alt="Logo"></Image>
-        <h1 className="text-2xl font-bold">Framework</h1>
+      <Link href="/" className="text-2xl font-black tracking-[3px] uppercase text-black">
+        Style<span className="text-blue-600">BD.</span>
       </Link>
     </div>
   );
