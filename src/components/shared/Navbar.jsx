@@ -10,6 +10,7 @@ import {
   IoPersonOutline,
 } from "react-icons/io5";
 import Logo from "./Logo";
+// import { ModeToggle } from "../ModeToggle";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -24,9 +25,9 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Collections", href: "/collections" },
-    { name: "New Arrivals", href: "/new" },
     { name: "Men", href: "/men" },
     { name: "Women", href: "/women" },
+    { name: "Register", href: "/register" },
   ];
 
   return (
@@ -69,7 +70,10 @@ const Navbar = () => {
               ))}
             </ul>
 
-            {/* Utility Icons */}
+            {/* theme toggle */}
+            {/* <ModeToggle /> */}
+
+            {/* Account  */}
             <div className="flex items-center gap-3 sm:gap-5 text-gray-700">
               <Link href="/account" className="hidden sm:block hover:text-black transition-all">
                 <IoPersonOutline size={22} />

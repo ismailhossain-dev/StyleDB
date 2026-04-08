@@ -13,37 +13,33 @@ import "swiper/css/effect-fade";
 import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 
 // Images
-import image1 from "../../../assets/image1.avif";
-import image2 from "../../../assets/image2.avif";
-import image3 from "../../../assets/image3.avif";
-import image4 from "../../../assets/image4.avif";
 
 const HeroSlide = () => {
   const slides = [
     {
       id: 1,
-      img: image1,
+      img: "/assets/image1.avif",
       title: "Timeless Fashion",
       sub: "Exclusive Winter Collection 2026",
       accent: "Fashion",
     },
     {
       id: 2,
-      img: image2,
+      img: "/assets/image2.avif",
       title: "Urban Streetwear",
       sub: "Style That Defines Your Identity",
       accent: "Streetwear",
     },
     {
       id: 3,
-      img: image3,
+      img: "/assets/image3.avif",
       title: "Modern Minimalist",
       sub: "Simplicity Is The Ultimate Sophistication",
       accent: "Minimalist",
     },
     {
       id: 4,
-      img: image4,
+      img: "/assets/image4.avif",
       title: "Premium Fabrics",
       sub: "Experience Comfort With Every Stitch",
       accent: "Fabrics",
