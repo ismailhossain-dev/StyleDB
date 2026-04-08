@@ -10,11 +10,13 @@ import {
   IoPersonOutline,
 } from "react-icons/io5";
 import Logo from "./Logo";
+import { usePathname } from "next/navigation";
 // import { ModeToggle } from "../ModeToggle";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   // স্ক্রল করলে নেভবার শ্যাডো হবে
   useEffect(() => {
@@ -61,7 +63,11 @@ const Navbar = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="relative text-[13px] font-bold uppercase tracking-widest text-gray-600 hover:text-black transition-colors group"
+                    className={
+                      pathname === link.href
+                        ? "text-blue-500"
+                        : "relative text-[13px] font-bold uppercase tracking-widest text-gray-600 hover:text-black transition-colors group"
+                    }
                   >
                     {link.name}
                     <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-black transition-all duration-300 group-hover:w-full"></span>
