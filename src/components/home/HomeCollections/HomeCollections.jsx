@@ -1,5 +1,6 @@
 "use server";
 import CollectionCard from "@/components/cards/CollectionCard";
+import Title from "@/components/Title/Title";
 import Link from "next/link";
 import React from "react";
 
@@ -10,9 +11,7 @@ const HomeCollections = async () => {
   return (
     <div>
       <div>
-        <h1 className="text-4xl text-center text-primary font-bold font-bold mt-25 mb-10 uppercase">
-          Our New Collection
-        </h1>
+        <Title> Our New Collection</Title>
 
         <Link className="text-blue-700 text-2xl font-bold text-right" href="collections">
           See all collections

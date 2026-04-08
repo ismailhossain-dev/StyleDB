@@ -1,6 +1,7 @@
 import React from "react";
 import { ShoppingCart, Star, Heart, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import Wishlist from "../buttons/Wishlist";
 
 const CollectionCard = ({ collection }) => {
   const { name, image, price, discount, rating, _id } = collection;
@@ -37,10 +38,8 @@ const CollectionCard = ({ collection }) => {
           )}
         </div>
 
-        {/* Wishlist */}
-        <button className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-md rounded-full text-gray-400 hover:text-red-500 transition-all duration-300 shadow-sm active:scale-75">
-          <Heart size={16} fill="currentColor" className="fill-transparent hover:fill-red-500" />
-        </button>
+        {/* Wishlist  button*/}
+        <Wishlist />
       </div>
 
       {/* Content Section */}
