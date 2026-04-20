@@ -3,9 +3,10 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Navbar from "../shared/Navbar";
-import { FaEye, FaEyeSlash, FaGoogle, FaGithub, FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
+import axios from "axios";
 
 const RegisterForm = () => {
   const axiosSecure = useAxiosSecure();
@@ -19,16 +20,41 @@ const RegisterForm = () => {
   } = useForm();
 
   const handleRegisterFrom = async (data) => {
-    console.log(data);
     setLoading(true);
 
-    const userInfo = {
-      ...data,
-      role: "user",
-      createdAt: new Date(),
-    };
-
     try {
+      //=====image work
+      const profileImage = data.photo?.[0];
+
+      // check image exists
+      if (!profileImage) {
+        alert("Please select an image");
+        return;
+      }
+
+      // FormData coming form js
+      const formData = new FormData();
+      formData.append("image", profileImage);
+
+      //send image imagebb
+      const image_API_URL = `https://api.imgbb.com/1/upload?expiration=600&key=${process.env.NEXT_PUBLIC_IMAGEBB_KEY}`;
+
+      // ✅ FIX: use await
+      const imgRes = await axios.post(image_API_URL, formData);
+      const image = imgRes.data.data.url;
+      console.log(imgRes.data.data.url);
+      //==========
+
+      //===== user info
+      const userInfo = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        image, // ✅ now working
+        role: "user",
+        createdAt: new Date(),
+      };
+
       const res = await axiosSecure.post("/api/user", userInfo);
       console.log("data insert database", res.data);
     } catch (error) {
@@ -92,6 +118,12 @@ const RegisterForm = () => {
                 {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
               </div>
 
+              {/* Image Field & file upload */}
+              <div className="flex flex-col gap-y-2">
+                <label className="text-sm font-semibold text-slate-700 ml-1">Photo</label>
+                <input type="file" {...register("photo")} className="file-input" />
+              </div>
+
               {/* Email */}
               <div className="group space-y-2">
                 <label className="text-sm font-semibold text-slate-700 ml-1">Email Address</label>
@@ -153,31 +185,6 @@ const RegisterForm = () => {
                 {loading ? "Processing..." : "Create Account"}
               </button>
             </form>
-
-            <div className="relative my-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-200"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-slate-400 uppercase">Or register with</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <button className="flex items-center justify-center gap-3 py-3.5 border rounded-2xl hover:bg-slate-50">
-                <FaGoogle className="text-red-500" /> Google
-              </button>
-              <button className="flex items-center justify-center gap-3 py-3.5 border rounded-2xl hover:bg-slate-50">
-                <FaGithub className="text-slate-900" /> GitHub
-              </button>
-            </div>
-
-            <p className="text-center mt-10 text-slate-600">
-              Already have an account?{" "}
-              <a href="/login" className="text-indigo-600 font-bold hover:underline">
-                Sign in
-              </a>
-            </p>
           </div>
         </div>
       </div>

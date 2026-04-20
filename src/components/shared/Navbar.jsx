@@ -11,13 +11,13 @@ import {
 } from "react-icons/io5";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
+
 // import { ModeToggle } from "../ModeToggle";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-
   // স্ক্রল করলে নেভবার শ্যাডো হবে
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -51,7 +51,7 @@ const Navbar = () => {
           </div>
 
           {/* Center: Logo (Fashion brands often center their logo) */}
-          <div className="flex-shrink-0 flex items-center justify-center">
+          <div className="flex-shrink-0 flex items-center justify-center gap-10">
             <Logo />
           </div>
 
@@ -78,6 +78,7 @@ const Navbar = () => {
 
             {/* theme toggle */}
             {/* <ModeToggle /> */}
+            {/* song  */}
 
             {/* Account  */}
             <div className="flex items-center gap-3 sm:gap-5 text-gray-700">

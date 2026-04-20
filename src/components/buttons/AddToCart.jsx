@@ -1,11 +1,15 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function AddToCart({ data }) {
-  console.log(data);
+  const router = useRouter();
   return (
     <div className="flex gap-4 mt-4">
-      <button className="flex-1 bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition-colors active:scale-95">
+      <button
+        onClick={() => router.push("/login")}
+        className="flex-1 bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition-colors active:scale-95"
+      >
         Add to Cart
       </button>
       <button className="p-4 border rounded-xl hover:bg-gray-50 transition-colors">
