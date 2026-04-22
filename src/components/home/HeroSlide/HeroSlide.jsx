@@ -8,110 +8,106 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
+import "swiper/css/navigation";
 
 // Modules
-import { Autoplay, Pagination, EffectFade } from "swiper/modules";
-
-// Images
+import { Autoplay, Pagination, EffectFade, Navigation } from "swiper/modules";
 
 const HeroSlide = () => {
   const slides = [
     {
       id: 1,
       img: "/assets/image1.avif",
-      title: "Timeless Fashion",
-      sub: "Exclusive Winter Collection 2026",
-      accent: "Fashion",
+      title: "Timeless",
+      accent: "Couture",
+      sub: "Winter Collection 2026",
     },
     {
       id: 2,
       img: "/assets/image2.avif",
-      title: "Urban Streetwear",
-      sub: "Style That Defines Your Identity",
-      accent: "Streetwear",
+      title: "Urban",
+      accent: "Minimal",
+      sub: "Defined by Identity",
     },
     {
       id: 3,
       img: "/assets/image3.avif",
-      title: "Modern Minimalist",
-      sub: "Simplicity Is The Ultimate Sophistication",
-      accent: "Minimalist",
-    },
-    {
-      id: 4,
-      img: "/assets/image4.avif",
-      title: "Premium Fabrics",
-      sub: "Experience Comfort With Every Stitch",
-      accent: "Fabrics",
+      title: "Modern",
+      accent: "Luxe",
+      sub: "Ultimate Sophistication",
     },
   ];
 
   return (
-    <section className="relative w-full h-[70vh] md:h-screen overflow-hidden bg-[#0a0a0a]">
+    <section className="relative w-full h-[85vh] md:h-screen overflow-hidden bg-black font-sans">
       <Swiper
         effect={"fade"}
-        speed={1500}
+        speed={1200}
+        loop={true}
         autoplay={{
-          delay: 2500,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,
-          dynamicBullets: true,
+          renderBullet: (index, className) => {
+            return `<span class="${className} custom-bullet"></span>`;
+          },
         }}
-        modules={[Pagination, Autoplay, EffectFade]}
-        className="w-full h-full"
+        navigation={true}
+        modules={[Pagination, Autoplay, EffectFade, Navigation]}
+        className="w-full h-full hero-swiper"
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            {/* মেইন কন্টেইনার - পজিশন রিলেটিভ */}
-            <div className="relative w-full h-full flex items-center">
-              {/* ১. ইমেজ সেকশন - Z-Index 0 */}
-              <div className="absolute inset-0 z-0 overflow-hidden">
+            <div className="relative w-full h-full flex items-center justify-center md:justify-start">
+              {/* Image with Ken Burns Effect */}
+              <div className="absolute inset-0 z-0">
                 <Image
                   src={slide.img}
                   alt={slide.title}
                   fill
                   priority
-                  className="object-cover object-center animate-ken-burns"
+                  className="object-cover object-center scale-110 animate-luxury-zoom"
                 />
               </div>
 
-              {/* ২. গ্রেডিয়েন্ট ওভারলে - Z-Index 10 */}
-              <div className="absolute inset-0 z-10 bg-black/50 md:bg-gradient-to-r md:from-black/80 md:via-black/30 md:to-transparent" />
+              {/* Sophisticated Overlay */}
+              <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/20 to-black/40 md:bg-gradient-to-r md:from-black/90 md:via-black/20 md:to-transparent" />
 
-              {/* ৩. টেক্সট কন্টেন্ট - Z-Index 20 (সবচেয়ে উপরে থাকবে) */}
-              <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 text-white">
-                <div className="overflow-hidden">
-                  <p className="text-xs md:text-sm uppercase font-medium tracking-[6px] mb-4 opacity-0 animate-slide-up-fade [animation-delay:200ms] [animation-fill-mode:forwards]">
+              {/* Subtle Film Grain (Optional aesthetic touch) */}
+              <div className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+              {/* Content */}
+              <div className="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 text-white">
+                <div className="max-w-2xl">
+                  <p className="text-[10px] md:text-xs uppercase font-bold tracking-[0.4em] mb-6 inline-block border-b border-white/30 pb-2 overflow-hidden animate-reveal-text">
                     {slide.sub}
                   </p>
-                </div>
 
-                <div className="overflow-hidden">
-                  <h1 className="text-5xl md:text-8xl font-light uppercase tracking-tighter mb-8 leading-[0.9] opacity-0 animate-slide-up-fade [animation-delay:400ms] [animation-fill-mode:forwards]">
-                    {slide.title.split(" ")[0]} <br />
-                    <span className="font-black italic text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">
+                  <h1 className="text-6xl md:text-[120px] font-extralight uppercase tracking-tighter leading-[0.85] mb-10">
+                    <span className="block mb-2">{slide.title}</span>
+                    <span className="block font-black italic outline-text text-transparent opacity-90">
                       {slide.accent}
                     </span>
                   </h1>
-                </div>
 
-                <div className="flex flex-wrap gap-5 opacity-0 animate-slide-up-fade [animation-delay:600ms] [animation-fill-mode:forwards]">
-                  <Link
-                    href="/shop"
-                    className="group relative overflow-hidden bg-white text-black px-10 py-4 rounded-none font-bold uppercase text-[10px] tracking-[2px] transition-all duration-500 hover:text-white"
-                  >
-                    <span className="relative z-10">Explore Collection</span>
-                    <div className="absolute inset-0 bg-black translate-y-full transition-transform duration-500 group-hover:translate-y-0"></div>
-                  </Link>
+                  <div className="flex flex-col sm:flex-row gap-4 mt-4 overflow-hidden">
+                    <Link
+                      href="/shop"
+                      className="group relative px-12 py-5 bg-white text-black text-[11px] font-bold uppercase tracking-[3px] transition-all duration-700 hover:text-white"
+                    >
+                      <span className="relative z-10">Explore Now</span>
+                      <div className="absolute inset-0 bg-black scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"></div>
+                    </Link>
 
-                  <Link
-                    href="/new-arrivals"
-                    className="border border-white/30 backdrop-blur-md text-white px-10 py-4 rounded-none font-bold uppercase text-[10px] tracking-[2px] hover:bg-white hover:text-black transition-all duration-500"
-                  >
-                    View Arrivals
-                  </Link>
+                    <Link
+                      href="/arrivals"
+                      className="px-12 py-5 border border-white/20 backdrop-blur-sm text-white text-[11px] font-bold uppercase tracking-[3px] hover:bg-white hover:text-black transition-all duration-500"
+                    >
+                      New Arrivals
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -119,39 +115,62 @@ const HeroSlide = () => {
         ))}
       </Swiper>
 
-      {/* CSS Animations */}
+      {/* Global CSS for refined animations */}
       <style jsx global>{`
-        @keyframes ken-burns {
-          0% {
+        .outline-text {
+          -webkit-text-stroke: 1.5px white;
+        }
+
+        /* Luxury Zoom Animation */
+        @keyframes luxury-zoom {
+          from {
+            transform: scale(1.1);
+          }
+          to {
             transform: scale(1);
           }
-          100% {
-            transform: scale(1.15);
+        }
+        .animate-luxury-zoom {
+          animation: luxury-zoom 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        /* Swiper Navigation Customization */
+        .swiper-button-next,
+        .swiper-button-prev {
+          color: white !important;
+          transform: scale(0.6);
+          transition: all 0.3s ease;
+          opacity: 0.3;
+        }
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+          opacity: 1;
+          transform: scale(0.7);
+        }
+
+        /* Progress Bar Pagination */
+        .custom-bullet {
+          width: 40px !important;
+          height: 2px !important;
+          border-radius: 0 !important;
+          background: rgba(255, 255, 255, 0.3) !important;
+          opacity: 1 !important;
+          transition: all 0.5s ease !important;
+        }
+        .swiper-pagination-bullet-active {
+          background: white !important;
+          width: 60px !important;
+        }
+
+        /* Hide nav on mobile */
+        @media (max-width: 768px) {
+          .swiper-button-next,
+          .swiper-button-prev {
+            display: none;
           }
-        }
-
-        @keyframes slide-up-fade {
-          0% {
-            transform: translateY(100%);
-            opacity: 0;
+          .outline-text {
+            -webkit-text-stroke: 1px white;
           }
-          100% {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-
-        .animate-ken-burns {
-          animation: ken-burns 12s ease-out forwards;
-        }
-
-        .animate-slide-up-fade {
-          animation: slide-up-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* Pagination index fix */
-        .swiper-pagination {
-          z-index: 30 !important;
         }
       `}</style>
     </section>

@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash, FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import axios from "axios";
+import Link from "next/link";
 
 const RegisterForm = () => {
   const axiosSecure = useAxiosSecure();
@@ -119,9 +120,47 @@ const RegisterForm = () => {
               </div>
 
               {/* Image Field & file upload */}
-              <div className="flex flex-col gap-y-2">
-                <label className="text-sm font-semibold text-slate-700 ml-1">Photo</label>
-                <input type="file" {...register("photo")} className="file-input" />
+              <div className="flex flex-col gap-y-3 w-full max-w-md">
+                <label className="text-sm font-bold tracking-wide text-slate-800 ml-1 uppercase">
+                  Profile Photo
+                </label>
+
+                <div className="relative group">
+                  {/* Decorative Border/Glow Effect */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+
+                  <div className="relative flex flex-col items-center justify-center w-full h-32 px-4 transition bg-white border-2 border-slate-200 border-dashed rounded-xl appearance-none cursor-pointer hover:border-indigo-400 focus:outline-none group-hover:bg-slate-50/50">
+                    {/* Icon and Text Decor */}
+                    <div className="flex flex-col items-center space-y-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-8 h-8 text-slate-400 group-hover:text-indigo-500 transition-colors"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      <span className="font-medium text-slate-600">
+                        Drop your image here or{" "}
+                        <span className="text-indigo-600 underline">browse</span>
+                      </span>
+                      <span className="text-xs text-slate-400 italic">PNG, JPG up to 10MB</span>
+                    </div>
+
+                    {/* The Actual Input (Hidden but functional) */}
+                    <input
+                      type="file"
+                      {...register("photo")}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Email */}
@@ -185,6 +224,12 @@ const RegisterForm = () => {
                 {loading ? "Processing..." : "Create Account"}
               </button>
             </form>
+            <p className="mt-4">
+              Already have a account{" "}
+              <Link href="/login" className="text-blue-600 underline font-bold">
+                Login
+              </Link>
+            </p>
           </div>
         </div>
       </div>
