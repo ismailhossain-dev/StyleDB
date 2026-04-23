@@ -38,7 +38,7 @@ const Navbar = () => {
   ];
 
   const adminLinks = [
-    { name: "Dashboard", href: "/admin/dashboard" },
+    { name: "Dashboard", href: "/admin" },
     { name: "Products", href: "/admin/products" },
     { name: "Orders", href: "/admin/orders" },
   ];

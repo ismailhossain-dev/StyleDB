@@ -1,6 +1,6 @@
 import HeroSlide from "@/components/home/HeroSlide/HeroSlide";
 import HomeCollections from "@/components/home/HomeCollections/HomeCollections";
-import OurServices from "@/components/home/OurServices/OurServices";
+
 import Footer from "@/components/shared/Footer";
 
 import Navbar from "@/components/shared/Navbar";
@@ -20,9 +20,6 @@ const page = async () => {
         <HomeCollections />
       </div>
 
-      <div>
-        <OurServices />
-      </div>
       <Footer />
     </div>
   );

@@ -1,26 +1,31 @@
 "use client";
-import Image from "next/image";
+
 import React, { useState } from "react";
 import Navbar from "../shared/Navbar";
 import { FaEye, FaEyeSlash, FaGoogle, FaGithub, FaEnvelope, FaLock } from "react-icons/fa";
 import { IoMdLogIn } from "react-icons/io";
+import { signIn } from "next-auth/react";
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
     const form = e.target;
     const email = form.email.value.trim();
     const password = form.password.value;
+    const loginInfo = { email, password };
+    // =========Nextauth signin work ==========
+    signIn("credentials", loginInfo);
+
+    //=============
+    setLoading(true);
 
     try {
       console.log("Logging in with:", { email, password });
       // Simulate API call
       setTimeout(() => {
-        alert("Welcome back! 👋");
+        // alert("Welcome back! 👋");
         setLoading(false);
       }, 1500);
     } catch (error) {
