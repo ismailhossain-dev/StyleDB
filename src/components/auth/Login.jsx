@@ -15,7 +15,7 @@ const Login = () => {
     const email = form.email.value.trim();
     const password = form.password.value;
     const loginInfo = { email, password };
-    // =========Nextauth signin work ==========
+    // =========Nextauth signin work ==========a
     signIn("credentials", loginInfo);
 
     //=============

@@ -3,15 +3,20 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export const authOptions = {
   providers: [
     CredentialsProvider({
+      // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" },
+      },
       async authorize(credentials, req) {
-        console.log(credentials);
-        //console.log("ami authOption teke credentials bolsi ", credentials); //right
-        // const user = await loginUser(credentials);
+        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+
         if (user) {
           return user;
+        } else {
+          return null;
         }
-        return null;
       },
     }),
   ],

@@ -1,14 +1,13 @@
 import Footer from "@/components/shared/Footer";
 import Navbar from "@/components/shared/Navbar";
 import axios from "axios";
+import Link from "next/link";
 import React from "react";
-import Image from "next/image"; // Next.js Image component recommend kora hoy
-import AddToCart from "@/components/buttons/AddToCart";
+// import AddToCart from "@/components/buttons/AddToCart";
 
 const CollectionDetailsPage = async ({ params }) => {
   const { id } = await params;
 
-  // Data fetching
   const res = await axios.get(`http://localhost:3000/api/getSingleData/${id}`);
   const data = res.data.result;
 
@@ -24,105 +23,105 @@ const CollectionDetailsPage = async ({ params }) => {
     price,
     rating,
     reviews,
-    sizes,
   } = data;
 
+  const originalPrice = discount ? (price / (1 - discount / 100)).toFixed(2) : null;
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-[#f1f1f1] min-h-screen mt-20">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-10">
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 md:p-10">
-            {/* Left: Product Image Section */}
-            <div className="relative group">
-              <div className="aspect-square overflow-hidden rounded-xl bg-gray-100">
-                <img
-                  src={image}
-                  alt={brand}
-                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
+      <main className="max-w-7xl mx-auto p-4 mt-6">
+        <div className="grid md:grid-cols-2 gap-6 bg-white rounded-xl p-4">
+          {/* LEFT DESIGN (MATCH IMAGE STYLE) */}
+          <div className="relative bg-[#f3f3f3] rounded-xl p-6 overflow-hidden">
+            {/* Top Brand */}
+            <h2 className="text-xl font-bold text-orange-500 absolute top-4 left-4">
+              GADGET <span className="text-blue-500">GARDEN</span>
+            </h2>
+
+            {/* Discount */}
+            {discount > 0 && (
+              <div className="absolute top-4 right-4 bg-orange-500 text-white text-xs px-3 py-1 rounded-md font-bold">
+                {discount}% ছাড়
               </div>
-              {discount > 0 && (
-                <span className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">
-                  -{discount}% OFF
-                </span>
+            )}
+
+            {/* Blue pill */}
+            <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-6 py-2 rounded-full text-sm font-semibold shadow">
+              {category}
+            </div>
+
+            {/* Small floating product */}
+            <img src={image} className="w-20 absolute top-20 left-6" />
+
+            {/* Main Image */}
+            <div className="flex justify-center items-center mt-20 relative z-10">
+              <img src={image} alt="product" className="w-[260px] object-contain" />
+            </div>
+
+            {/* Orange Shape */}
+          </div>
+
+          {/* RIGHT SIDE */}
+          <div className="p-4 flex flex-col gap-4">
+            <h1 className="text-3xl font-bold text-gray-800">{category}</h1>
+
+            {/* Rating */}
+            <div className="flex items-center gap-2">
+              <span className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded font-semibold text-sm">
+                ★ {rating}
+              </span>
+              <span className="text-gray-500 text-sm">({reviews} reviews)</span>
+            </div>
+
+            {/* Price */}
+            <div className="flex items-center gap-3">
+              {originalPrice && (
+                <span className="line-through text-gray-400">৳{originalPrice}</span>
               )}
+              <span className="text-2xl font-bold text-orange-500">৳{price}</span>
             </div>
 
-            {/* Right: Product Info Section */}
-            <div className="flex flex-col space-y-5">
-              <div>
-                <p className="text-sm font-medium text-blue-600 uppercase tracking-widest">
-                  {brand}
-                </p>
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-1 capitalize">
-                  {category}
-                </h1>
-
-                <div className="flex items-center mt-3 space-x-4">
-                  <div className="flex items-center bg-yellow-100 px-2 py-1 rounded">
-                    <span className="text-yellow-700 font-bold text-sm">★ {rating}</span>
-                  </div>
-                  <span className="text-sm text-gray-500 font-medium">
-                    ({reviews} Verified Reviews)
-                  </span>
-                </div>
-              </div>
-
-              <div className="border-t border-b py-4">
-                <div className="flex items-center space-x-4">
-                  <span className="text-3xl font-bold text-gray-900">${price}</span>
-                  {discount > 0 && (
-                    <span className="text-xl text-gray-400 line-through">
-                      ${(price + (price * discount) / 100).toFixed(2)}
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-green-600 mt-1 font-medium italic">
-                  Tax included & Free Shipping
-                </p>
-              </div>
-
-              <p className="text-gray-600 leading-relaxed">
-                {description ||
-                  "Experience the perfect blend of style and comfort with this premium collection. Crafted with precision for those who value quality."}
-              </p>
-
-              {/* Product Specifications */}
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <span className="text-gray-500 block">Material</span>
-                  <span className="font-semibold text-gray-800">{material}</span>
-                </div>
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <span className="text-gray-500 block">Color</span>
-                  <span className="font-semibold text-gray-800">{color}</span>
-                </div>
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <span className="text-gray-500 block">Gender</span>
-                  <span className="font-semibold text-gray-800 capitalize">{gender}</span>
-                </div>
-              </div>
-
-              {/* Size Selection */}
-              <div>
-                <h3 className="text-sm font-bold text-gray-900 mb-3">Available Sizes</h3>
-                <div className="flex flex-wrap gap-2">
-                  {sizes?.map((size) => (
-                    <button
-                      key={size}
-                      className="px-4 py-2 border rounded-md hover:border-black transition-all font-medium text-sm"
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <AddToCart data={data} />
+            {/* Delivery */}
+            <div>
+              <p className="text-orange-500 font-semibold">কুরিয়ার ডেলিভারি চার্জ</p>
+              <p className="text-sm text-gray-600">পুরো বাংলাদেশ ৬০ টাকা</p>
             </div>
+
+            {/* Buttons like image */}
+            <div className="flex flex-col gap-3 mt-2">
+              <Link href="/checkout" className="btn">
+                অর্ডার করুন
+              </Link>
+
+              <button className="bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600">
+                হোয়াটসঅ্যাপ
+              </button>
+            </div>
+
+            {/* Description */}
+            <p className="text-gray-600 text-sm leading-relaxed mt-2">
+              {description || "Premium quality product with modern design and durability."}
+            </p>
+
+            {/* Specs */}
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div className="bg-gray-100 p-3 rounded">
+                <p className="text-gray-500">Material</p>
+                <p className="font-semibold">{material}</p>
+              </div>
+              <div className="bg-gray-100 p-3 rounded">
+                <p className="text-gray-500">Color</p>
+                <p className="font-semibold">{color}</p>
+              </div>
+              <div className="bg-gray-100 p-3 rounded">
+                <p className="text-gray-500">Gender</p>
+                <p className="font-semibold capitalize">{gender}</p>
+              </div>
+            </div>
+
+            {/* <AddToCart data={data} /> */}
           </div>
         </div>
       </main>

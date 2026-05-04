@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const result = await dbConnect("products").find().limit(6).toArray();
+    console.log(result);
     return NextResponse.json(
       {
         success: true,

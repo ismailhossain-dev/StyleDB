@@ -14,7 +14,7 @@ const AllCollectionPage = async () => {
         <h1 className="text-4xl text-center text-primary font-bold font-bold mt-25 mb-10 uppercase">
           Our New All Collection
         </h1>
-        <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {data.data.map((collection) => (
             <CollectionCard key={collection._id} collection={collection}></CollectionCard>
           ))}
